@@ -20,7 +20,7 @@ namespace ElevenNote.Services
         public bool CreateNote(NoteCreate model)
         {
             var entity =
-                new Note()
+                new Note
                 {
                     OwnerId = _userId,
                     Title = model.Title,
@@ -45,16 +45,14 @@ namespace ElevenNote.Services
                         .Notes
                         .Where(e => e.OwnerId == _userId)
                         .Select(
-                            e =>
-                                new NoteListItem
+                            e => new NoteListItem
                                 {
                                     NoteId = e.NoteId,
                                     Title = e.Title,
                                     CreatedUtc = e.CreatedUtc,
                                     CategoryId = e.CategoryId,
                                     CategoryName = e.Category.CategoryName
-                                }
-                                );
+                                });
 
                 return query.ToArray();
             }
@@ -76,7 +74,7 @@ namespace ElevenNote.Services
                         Content = entity.Content,
                         CreatedUtc = entity.CreatedUtc,
                         ModifiedUtc = entity.ModifiedUtc,
-                        CategoryId = entity.Category.CategoryId,
+                        CategoryId = entity.CategoryId,
                         CategoryName = entity.Category.CategoryName
                     };
             }
