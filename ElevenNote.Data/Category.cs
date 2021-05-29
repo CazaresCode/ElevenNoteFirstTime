@@ -14,7 +14,7 @@ namespace ElevenNote.Data
         public int CateogryId { get; set; }
         
         [Required]
-        public string Name { get; set; }
+        public string CategoryName { get; set; }
 
         [Required]
         public Guid OwnerId { get; set; }

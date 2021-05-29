@@ -22,7 +22,7 @@ namespace ElevenNote.Services
             var entity = new Category()
             {
                 OwnerId = _userId,
-                Name = model.Name,
+                CategoryName = model.CategoryName
             };
 
             using (var ctx = new ApplicationDbContext())
@@ -31,9 +31,10 @@ namespace ElevenNote.Services
                 return ctx.SaveChanges() == 1;
             }
         }
+
         public IEnumerable<CategoryListItem> GetCategories()
         {
-            using( var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
@@ -44,7 +45,7 @@ namespace ElevenNote.Services
                                 new CategoryListItem
                                 {
                                     CategoryId = e.CateogryId,
-                                    Name = e.Name
+                                    CategoryName = e.CategoryName
                                 }
                                 );
 
@@ -52,10 +53,51 @@ namespace ElevenNote.Services
             }
         }
 
-       
+        public CategoryDetail GetCategoryById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Categories
+                        .Single(e => e.CateogryId == id && e.OwnerId == _userId);
+                return
+                    new CategoryDetail
+                    {
+                        CategoryId = entity.CateogryId,
+                        CategoryName = entity.CategoryName
+                    };
+            }
+        }
 
+        public bool UpdateCategory(CategoryDetail model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Categories
+                        .Single(e => e.CateogryId == model.CategoryId && e.OwnerId == _userId);
 
+                entity.CategoryName = model.CategoryName;
 
+                return ctx.SaveChanges() == 1;
+            }
+        }
 
+        public bool DeleteCategory(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                    .Categories
+                    .Single(e => e.CateogryId == id && e.OwnerId == _userId);
+
+                ctx.Categories.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
+            }
+        }
     }
 }

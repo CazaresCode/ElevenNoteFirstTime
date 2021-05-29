@@ -21,6 +21,13 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok(c);
         }
 
+        public IHttpActionResult Get(int id)
+        {
+            CategoryService categoryService = CreateCategoryService();
+            var c = categoryService.GetCategoryById(id);
+            return Ok(c);
+        }
+
         public IHttpActionResult Post(CategoryCreate category)
         {
             if (!ModelState.IsValid)
@@ -34,10 +41,27 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok();
         }
 
+        public IHttpActionResult Put(CategoryEdit category)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var service = CreateCategoryService();
 
+            if (!service.UpdateCategory(category))
+                return InternalServerError();
 
+            return Ok();
+        }
 
+        public IHttpActionResult Delete(int id)
+        {
+            var service = CreateCategoryService();
+            if (!service.DeleteCategory(id))
+                return InternalServerError();
+
+            return Ok();
+        }
 
         private CategoryService CreateCategoryService()
         {
