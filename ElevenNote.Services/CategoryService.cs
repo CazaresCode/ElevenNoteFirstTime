@@ -70,7 +70,7 @@ namespace ElevenNote.Services
             }
         }
 
-        public bool UpdateCategory(CategoryDetail model)
+        public bool UpdateCategory(CategoryEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
