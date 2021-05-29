@@ -18,7 +18,6 @@ namespace ElevenNote.Data
 
         [Required]
         [MaxLength(100, ErrorMessage = "There are too many characters in this field.")]
-        [Display(Name = "Your Note")]
         public string Title { get; set; }
 
         [Required]
@@ -29,8 +28,8 @@ namespace ElevenNote.Data
 
         public DateTimeOffset? ModifiedUtc { get; set; }
 
-        public int CateogryId { get; set; }
-        [ForeignKey(nameof(CateogryId))]
+        [ForeignKey(nameof(Category))]
+        public int? CateogryId { get; set; }
         public virtual Category Category { get; set; }
     }
 }

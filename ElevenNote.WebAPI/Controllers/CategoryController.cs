@@ -13,12 +13,6 @@ namespace ElevenNote.WebAPI.Controllers
     [Authorize]
     public class CategoryController : ApiController
     {
-        private CategoryService CreateCategoryService()
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var categoryService = new CategoryService(userId);
-            return categoryService;
-        }
 
         public IHttpActionResult Get()
         {
@@ -45,5 +39,11 @@ namespace ElevenNote.WebAPI.Controllers
 
 
 
+        private CategoryService CreateCategoryService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var categoryService = new CategoryService(userId);
+            return categoryService;
+        }
     }
 }
