@@ -44,7 +44,7 @@ namespace ElevenNote.Services
                             e =>
                                 new CategoryListItem
                                 {
-                                    CategoryId = e.CateogryId,
+                                    CategoryId = e.CategoryId,
                                     CategoryName = e.CategoryName
                                 }
                                 );
@@ -60,11 +60,11 @@ namespace ElevenNote.Services
                 var entity =
                     ctx
                         .Categories
-                        .Single(e => e.CateogryId == id && e.OwnerId == _userId);
+                        .Single(e => e.CategoryId == id && e.OwnerId == _userId);
                 return
                     new CategoryDetail
                     {
-                        CategoryId = entity.CateogryId,
+                        CategoryId = entity.CategoryId,
                         CategoryName = entity.CategoryName
                     };
             }
@@ -77,7 +77,7 @@ namespace ElevenNote.Services
                 var entity =
                     ctx
                         .Categories
-                        .Single(e => e.CateogryId == model.CategoryId && e.OwnerId == _userId);
+                        .Single(e => e.CategoryId == model.CategoryId && e.OwnerId == _userId);
 
                 entity.CategoryName = model.CategoryName;
 
@@ -92,7 +92,7 @@ namespace ElevenNote.Services
                 var entity =
                     ctx
                     .Categories
-                    .Single(e => e.CateogryId == id && e.OwnerId == _userId);
+                    .Single(e => e.CategoryId == id && e.OwnerId == _userId);
 
                 ctx.Categories.Remove(entity);
 

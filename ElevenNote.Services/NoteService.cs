@@ -26,7 +26,7 @@ namespace ElevenNote.Services
                     Title = model.Title,
                     Content = model.Content,
                     CreatedUtc = DateTimeOffset.Now,
-                    CateogryId = model.CategoryId
+                    CategoryId = model.CategoryId
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -51,7 +51,7 @@ namespace ElevenNote.Services
                                     NoteId = e.NoteId,
                                     Title = e.Title,
                                     CreatedUtc = e.CreatedUtc,
-                                    CategoryId = e.CateogryId,
+                                    CategoryId = e.CategoryId,
                                     CategoryName = e.Category.CategoryName
                                 }
                                 );
@@ -76,7 +76,7 @@ namespace ElevenNote.Services
                         Content = entity.Content,
                         CreatedUtc = entity.CreatedUtc,
                         ModifiedUtc = entity.ModifiedUtc,
-                        CategoryId = entity.Category.CateogryId,
+                        CategoryId = entity.Category.CategoryId,
                         CategoryName = entity.Category.CategoryName
                     };
             }

@@ -11,7 +11,7 @@ namespace ElevenNote.Data
     public class Category
     {
         [Key]
-        public int CateogryId { get; set; }
+        public int CategoryId { get; set; }
         
         [Required]
         public string CategoryName { get; set; }

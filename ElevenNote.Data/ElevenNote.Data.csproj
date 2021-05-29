@@ -88,17 +88,9 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202105271612119_InitialCreate.cs" />
-    <Compile Include="Migrations\202105271612119_InitialCreate.Designer.cs">
-      <DependentUpon>202105271612119_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105290252288_AddedCategory.cs" />
-    <Compile Include="Migrations\202105290252288_AddedCategory.Designer.cs">
-      <DependentUpon>202105290252288_AddedCategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105292133363_UpdatedCategory.cs" />
-    <Compile Include="Migrations\202105292133363_UpdatedCategory.Designer.cs">
-      <DependentUpon>202105292133363_UpdatedCategory.cs</DependentUpon>
+    <Compile Include="Migrations\202105292234253_InitialMigrationAndCategory.cs" />
+    <Compile Include="Migrations\202105292234253_InitialMigrationAndCategory.Designer.cs">
+      <DependentUpon>202105292234253_InitialMigrationAndCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Note.cs" />
@@ -109,14 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105271612119_InitialCreate.resx">
-      <DependentUpon>202105271612119_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105290252288_AddedCategory.resx">
-      <DependentUpon>202105290252288_AddedCategory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105292133363_UpdatedCategory.resx">
-      <DependentUpon>202105292133363_UpdatedCategory.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105292234253_InitialMigrationAndCategory.resx">
+      <DependentUpon>202105292234253_InitialMigrationAndCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
