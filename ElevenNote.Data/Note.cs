@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,11 @@ namespace ElevenNote.Data
         public int NoteId { get; set; }
 
         [Required]
-        //[Range(1, 5, ErrorMessage = "please choose a number between 1 and 5")]
         public Guid OwnerId { get; set; }
 
         [Required]
-        //[MaxLength(100, ErrorMessage = "There are too many characters in this field.")]
-        //[Display(Name = "Your Note")]
+        [MaxLength(100, ErrorMessage = "There are too many characters in this field.")]
+        [Display(Name = "Your Note")]
         public string Title { get; set; }
 
         [Required]
@@ -29,6 +29,8 @@ namespace ElevenNote.Data
 
         public DateTimeOffset? ModifiedUtc { get; set; }
 
-        public virtual List<Category> Categories { get; set; } = new List<Category>();
+        public int CateogryId { get; set; }
+        [ForeignKey(nameof(CateogryId))]
+        public virtual Category Category { get; set; }
     }
 }

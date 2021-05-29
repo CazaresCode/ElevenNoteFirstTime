@@ -10,14 +10,15 @@ namespace ElevenNote.Data
 {
     public class Category
     {
+        [Key]
         public int CateogryId { get; set; }
         
         [Required]
         public string Name { get; set; }
 
         [Required]
-        public int NoteId { get; set; }
-        [ForeignKey(nameof(NoteId))]
-        public virtual Note Note { get; set; }
+        public Guid OwnerId { get; set; }
+
+        public virtual List<Note> Notes { get; set; } = new List<Note>();
     }
 }
