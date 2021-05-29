@@ -1,4 +1,5 @@
-﻿using ElevenNote.Services;
+﻿using ElevenNote.Models.CategoryModels;
+using ElevenNote.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,18 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok(c);
         }
 
-        //public IHttpActionResult Post(Cat)
+        public IHttpActionResult Post(CategoryCreate category)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var service = CreateCategoryService();
+
+            if (!service.CreateCategory(category))
+                return InternalServerError();
+
+            return Ok();
+        }
 
 
 
