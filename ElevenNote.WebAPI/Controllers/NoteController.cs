@@ -13,7 +13,7 @@ namespace ElevenNote.WebAPI.Controllers
     [Authorize]
     public class NoteController : ApiController
     {
-
+        [HttpGet]
         public IHttpActionResult Get()
         {
             NoteService noteService = CreateNoteService();
@@ -21,6 +21,7 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok(notes);
         }
 
+        [HttpGet]
         public IHttpActionResult Get(int id)
         {
             NoteService noteService = CreateNoteService();
@@ -28,7 +29,7 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok(note);
         }
 
-        
+        [HttpPost]
         public IHttpActionResult Post(NoteCreate note)
         {
             if (!ModelState.IsValid)
@@ -42,7 +43,7 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok();
         }
 
-
+        [HttpPut]
         public IHttpActionResult Put(NoteEdit note)
         {
             if (!ModelState.IsValid)
@@ -56,6 +57,25 @@ namespace ElevenNote.WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPut, Route("api/Note/{id}/IsStarred")]
+        public bool PutStarredNotes(int id) // Is it bool b/c we are asking it to return a bool due to IsStarred?
+        {
+            var service = CreateNoteService();
+
+            var note = service.GetNoteById(id);
+
+            var updatedNote = new NoteEdit()
+            {
+                NoteId = note.NoteId,
+                Title = note.Title,
+                Content = note.Content,
+                IsStarred = note.IsStarred
+            };
+
+            return service.UpdateNote(updatedNote);
+        }
+
+        [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             var service = CreateNoteService();
