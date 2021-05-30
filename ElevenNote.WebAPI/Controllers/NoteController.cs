@@ -26,6 +26,10 @@ namespace ElevenNote.WebAPI.Controllers
         {
             NoteService noteService = CreateNoteService();
             var note = noteService.GetNoteById(id);
+
+            if (note == null)
+                return NotFound();
+
             return Ok(note);
         }
 
@@ -69,7 +73,7 @@ namespace ElevenNote.WebAPI.Controllers
                 NoteId = note.NoteId,
                 Title = note.Title,
                 Content = note.Content,
-                IsStarred = note.IsStarred
+                IsStarred = !note.IsStarred
             };
 
             return service.UpdateNote(updatedNote);
