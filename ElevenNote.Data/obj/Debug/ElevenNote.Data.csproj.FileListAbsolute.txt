@@ -35,3 +35,4 @@ C:\Users\alexa\Desktop\ElevenFiftyProjects\BlueBadge\ElevenNoteFolder\ElevenNote
 C:\Users\alexa\Desktop\ElevenFiftyProjects\BlueBadge\ElevenNoteFolder\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.pdb
 C:\Users\alexa\Desktop\ElevenFiftyProjects\BlueBadge\ElevenNoteFolder\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.Migrations.InitialMigrationAndCategory.resources
 C:\Users\alexa\Desktop\ElevenFiftyProjects\BlueBadge\ElevenNoteFolder\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.csproj.GenerateResource.cache
+C:\Users\alexa\Desktop\ElevenFiftyProjects\BlueBadge\ElevenNoteFolder\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.Migrations.AddedIsStarredProperty.resources

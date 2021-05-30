@@ -22,5 +22,8 @@ namespace ElevenNote.Models
 
         [Display(Name ="Category")]
         public string CategoryName { get; set; }
+
+        [Display(Name = "Important")]
+        public bool IsStarred { get; set; }
     }
 }
