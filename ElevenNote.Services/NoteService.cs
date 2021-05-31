@@ -2,6 +2,7 @@
 using ElevenNote.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,27 +17,6 @@ namespace ElevenNote.Services
         {
             _userId = userId;
         }
-
-        public bool CreateNote(NoteCreate model)
-        {
-            var entity =
-                new Note
-                {
-                    OwnerId = _userId,
-                    Title = model.Title,
-                    Content = model.Content,
-                    CreatedUtc = DateTimeOffset.Now,
-                    CategoryId = model.CategoryId,
-                    IsStarred = model.IsStarred
-                };
-
-            using (var ctx = new ApplicationDbContext())
-            {
-                ctx.Notes.Add(entity);
-                return ctx.SaveChanges() == 1;
-            }
-        }
-
         public IEnumerable<NoteListItem> GetNotes()
         {
             using (var ctx = new ApplicationDbContext())
@@ -47,14 +27,14 @@ namespace ElevenNote.Services
                         .Where(e => e.OwnerId == _userId)
                         .Select(
                             e => new NoteListItem
-                                {
-                                    NoteId = e.NoteId,
-                                    Title = e.Title,
-                                    CreatedUtc = e.CreatedUtc,
-                                    CategoryId = e.CategoryId,
-                                    CategoryName = e.Category.CategoryName,
-                                    IsStarred = e.IsStarred
-                                });
+                            {
+                                NoteId = e.NoteId,
+                                Title = e.Title,
+                                CreatedUtc = e.CreatedUtc,
+                                CategoryId = e.CategoryId,
+                                CategoryName = e.Category.CategoryName,
+                                IsStarred = e.IsStarred
+                            });
 
                 return query.ToArray();
             }
@@ -83,11 +63,46 @@ namespace ElevenNote.Services
             }
         }
 
+        public bool CreateNote(NoteCreate model)
+        {
+            try
+            {
+                var entity =
+                    new Note
+                    {
+                        OwnerId = _userId,
+                        Title = model.Title,
+                        Content = model.Content,
+                        CreatedUtc = DateTimeOffset.Now,
+                        CategoryId = model.CategoryId == 0 ? 1 : model.CategoryId,
+                    };
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var category = ctx.Categories.Find(model.CategoryId);
+                    if(category == null)
+                    {
+                        return false;
+                    }
+                    ctx.Notes.Add(entity);
+                    return ctx.SaveChanges() == 1;
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return false;
+            }
+            catch (Exception dbex)
+            {
+                return false;
+            }
+        }
+
+
         public bool UpdateNote(NoteEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = 
+                var entity =
                     ctx
                         .Notes
                         .Single(e => e.NoteId == model.NoteId && e.OwnerId == _userId);
@@ -117,4 +132,3 @@ namespace ElevenNote.Services
         }
     }
 }
- 

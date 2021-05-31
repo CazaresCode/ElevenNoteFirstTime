@@ -96,6 +96,10 @@
     <Compile Include="Migrations\202105301628233_AddedIsStarredProperty.Designer.cs">
       <DependentUpon>202105301628233_AddedIsStarredProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105311720482_MadeCategoryNullable.cs" />
+    <Compile Include="Migrations\202105311720482_MadeCategoryNullable.Designer.cs">
+      <DependentUpon>202105311720482_MadeCategoryNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105301628233_AddedIsStarredProperty.resx">
       <DependentUpon>202105301628233_AddedIsStarredProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105311720482_MadeCategoryNullable.resx">
+      <DependentUpon>202105311720482_MadeCategoryNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

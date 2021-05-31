@@ -17,9 +17,6 @@ namespace ElevenNote.Models
         [MaxLength(8000)]
         public string Content { get; set; }
 
-        public int CategoryId { get; set; }
-
-        [Display(Name ="Important")]
-        public bool IsStarred { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

@@ -14,15 +14,30 @@ namespace ElevenNote.WebAPI.Controllers
     public class NoteController : ApiController
     {
         [HttpGet]
-        public IHttpActionResult Get()
+        //[Route("api/Note/?pageNo={pageNo}")]
+        public IHttpActionResult GetAllNotes(int pageNum)
         {
             NoteService noteService = CreateNoteService();
             var notes = noteService.GetNotes();
-            return Ok(notes);
+
+            var totalNotes = notes.Count(); // ?
+            int pageNo = pageNum;
+            int pageSize = 3;
+            var skip = pageSize * (pageNo - 1);
+            var canPage = skip < totalNotes; // ?
+
+            if (!canPage)
+                return NotFound();
+
+            return Ok(notes
+                .Skip(skip)
+                .Take(pageSize)
+                .ToList());
         }
 
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        [Route("api/Note/{id}")]
+        public IHttpActionResult GetNoteById(int id)
         {
             NoteService noteService = CreateNoteService();
             var note = noteService.GetNoteById(id);
@@ -44,7 +59,7 @@ namespace ElevenNote.WebAPI.Controllers
             if (!service.CreateNote(note))
                 return InternalServerError();
 
-            return Ok();
+            return Ok(note);
         }
 
         [HttpPut]
