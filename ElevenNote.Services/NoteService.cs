@@ -17,6 +17,7 @@ namespace ElevenNote.Services
         {
             _userId = userId;
         }
+
         public IEnumerable<NoteListItem> GetNotes()
         {
             using (var ctx = new ApplicationDbContext())
@@ -25,6 +26,29 @@ namespace ElevenNote.Services
                     ctx
                         .Notes
                         .Where(e => e.OwnerId == _userId)
+                        .Select(
+                            e => new NoteListItem
+                            {
+                                NoteId = e.NoteId,
+                                Title = e.Title,
+                                CreatedUtc = e.CreatedUtc,
+                                CategoryId = e.CategoryId,
+                                CategoryName = e.Category.CategoryName,
+                                IsStarred = e.IsStarred
+                            });
+
+                return query.ToArray();
+            }
+        }
+
+        public IEnumerable<NoteListItem> GetNotesByStarred()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Notes
+                        .Where(e => e.OwnerId == _userId && e.IsStarred == true)
                         .Select(
                             e => new NoteListItem
                             {
@@ -74,12 +98,12 @@ namespace ElevenNote.Services
                         Title = model.Title,
                         Content = model.Content,
                         CreatedUtc = DateTimeOffset.Now,
-                        CategoryId = model.CategoryId == 0 ? 1 : model.CategoryId,
+                        CategoryId = model.CategoryId == 0 ? 1 : model.CategoryId, // take it out
                     };
                 using (var ctx = new ApplicationDbContext())
                 {
                     var category = ctx.Categories.Find(model.CategoryId);
-                    if(category == null)
+                    if (category == null)
                     {
                         return false;
                     }
@@ -96,7 +120,6 @@ namespace ElevenNote.Services
                 return false;
             }
         }
-
 
         public bool UpdateNote(NoteEdit model)
         {

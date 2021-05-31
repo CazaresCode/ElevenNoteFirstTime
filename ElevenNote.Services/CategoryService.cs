@@ -96,7 +96,7 @@ namespace ElevenNote.Services
 
                 ctx.Categories.Remove(entity);
 
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() >= 1;
             }
         }
     }

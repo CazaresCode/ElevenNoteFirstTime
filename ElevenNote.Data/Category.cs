@@ -18,5 +18,7 @@ namespace ElevenNote.Data
 
         [Required]
         public Guid OwnerId { get; set; }
+
+        public virtual List<Note> ListOfNotes { get; set; }
     }
 }

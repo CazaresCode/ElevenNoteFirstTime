@@ -36,6 +36,19 @@ namespace ElevenNote.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/Note/IsStarred")]
+        public IHttpActionResult GetAllStaredNotes()
+        {
+            var service = CreateNoteService();
+            var notes = service.GetNotesByStarred();
+
+            if (notes == null)
+                return NotFound();
+
+            return Ok(notes);
+        }
+
+        [HttpGet]
         [Route("api/Note/{id}")]
         public IHttpActionResult GetNoteById(int id)
         {
@@ -77,10 +90,9 @@ namespace ElevenNote.WebAPI.Controllers
         }
 
         [HttpPut, Route("api/Note/{id}/IsStarred")]
-        public bool PutStarredNotes(int id) // Is it bool b/c we are asking it to return a bool due to IsStarred?
+        public IHttpActionResult PutStarredNotes(int id)
         {
             var service = CreateNoteService();
-
             var note = service.GetNoteById(id);
 
             var updatedNote = new NoteEdit()
@@ -91,10 +103,14 @@ namespace ElevenNote.WebAPI.Controllers
                 IsStarred = !note.IsStarred
             };
 
-            return service.UpdateNote(updatedNote);
+            if (!service.UpdateNote(updatedNote))
+                return InternalServerError();
+
+            return Ok();
         }
 
         [HttpDelete]
+        [Route("api/Note/Delete/{id}")]
         public IHttpActionResult Delete(int id)
         {
             var service = CreateNoteService();

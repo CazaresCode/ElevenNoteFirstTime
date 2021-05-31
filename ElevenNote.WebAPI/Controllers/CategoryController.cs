@@ -57,6 +57,7 @@ namespace ElevenNote.WebAPI.Controllers
         public IHttpActionResult Delete(int id)
         {
             var service = CreateCategoryService();
+
             if (!service.DeleteCategory(id))
                 return InternalServerError();
 
